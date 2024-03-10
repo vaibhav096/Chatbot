@@ -2,45 +2,47 @@ from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.models import User
-import os
-from dotenv import load_dotenv
 from .models import chat
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 import json
 
+import os
+from dotenv import load_dotenv
 load_dotenv()
 
-
-import pathlib
 import textwrap
-
 import google.generativeai as genai
 
-from IPython.display import display
 from IPython.display import Markdown
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 genai.configure(api_key=GOOGLE_API_KEY)
 
+import markdown2
+import markdown2
 
-import textwrap
-from markdown import Markdown
+def make_html(markdown_text):
+    html_content = markdown2.markdown(markdown_text)
+    html_document = f"<html><head><title>Markdown to HTML</title></head><body>{html_content}</body></html>"
+    return html_document
+
+# Example usage:
+
+# html_document = make_html(markdown_text)
+# print(html_document)
+
 
 def to_markdown(text):
-    text = text.replace('•', '  *')
-    md = Markdown()
-    return md.convert(textwrap.indent(text, '> ', predicate=lambda _: True))
-
+  text = text.replace('•', '  *')
+  return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
 
 def ask_api(message):
     model = genai.GenerativeModel('gemini-pro')
-    
     response = model.generate_content(message)
-
-    
-    return response.text
+    # print(to_markdown(response.text))
+    return to_markdown(response.text).data
 
 @login_required(login_url='/login')
 def chatbot(request):
@@ -48,8 +50,9 @@ def chatbot(request):
     if request.method =='POST':
         message = request.POST.get('message')
         response = ask_api(message)
-        new_res = to_markdown(response)
-        ch =chat(user=request.user,message=message,response=new_res,created_at=timezone.now())
+        # new_res = response.data
+        res=make_html(response)
+        ch =chat(user=request.user,message=message,response=res,created_at=timezone.now())
         ch.save()
         return JsonResponse({'meaasge':message, 'response':response})
         
