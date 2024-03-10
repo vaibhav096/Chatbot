@@ -6,6 +6,7 @@ import os
 from dotenv import load_dotenv
 from .models import chat
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 import json
 
 load_dotenv()
@@ -46,7 +47,7 @@ def ask_api(message):
 # if request.user.is_authenticated:
 #             # Filter the queryset using the user's ID
 #             chats = chat.objects.filter(user=request.user.id)
-
+@login_required(login_url='/login')
 def chatbot(request):
     chats = chat.objects.filter(user=request.user.id)
     if request.method =='POST':
@@ -96,6 +97,7 @@ def register(request):
 
     return render(request,'register.html')
 
+@login_required(login_url='/login')
 def logout(request):
     auth.logout(request) 
     return redirect('login')

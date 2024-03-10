@@ -25,8 +25,9 @@ SECRET_KEY = 'django-insecure-j)5r$0a*vrm9w72^sh2zmh=juxth!hjoen37q8vc=aw*+3a+#7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['chatbot-9ske.onrender.com']
-# 
+ALLOWED_HOSTS = []
+
+# 'chatbot-9ske.onrender.com'
 
 
 # Application definition
@@ -123,3 +124,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL ='/'
+LOGOUT_REDIRECT_URL='/login'
