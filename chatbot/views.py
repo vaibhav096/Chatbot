@@ -43,9 +43,12 @@ def ask_api(message):
     return str(ans)
     # return response.text
 
+# if request.user.is_authenticated:
+#             # Filter the queryset using the user's ID
+#             chats = chat.objects.filter(user=request.user.id)
 
 def chatbot(request):
-    chats = chat.objects.filter(user=request.user)
+    chats = chat.objects.filter(user=request.user.id)
     if request.method =='POST':
         message = request.POST.get('message')
         response = ask_api(message)
