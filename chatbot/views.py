@@ -38,22 +38,18 @@ def ask_api(message):
     model = genai.GenerativeModel('gemini-pro')
     
     response = model.generate_content(message)
-    print(type(response.text))
-    ans = to_markdown(response.text)
-    
-    return str(ans)
-    # return response.text
 
-# if request.user.is_authenticated:
-#             # Filter the queryset using the user's ID
-#             chats = chat.objects.filter(user=request.user.id)
+    
+    return response.text
+
 @login_required(login_url='/login')
 def chatbot(request):
     chats = chat.objects.filter(user=request.user.id)
     if request.method =='POST':
         message = request.POST.get('message')
         response = ask_api(message)
-        ch =chat(user=request.user,message=message,response=response,created_at=timezone.now())
+        new_res = to_markdown(response)
+        ch =chat(user=request.user,message=message,response=new_res,created_at=timezone.now())
         ch.save()
         return JsonResponse({'meaasge':message, 'response':response})
         
