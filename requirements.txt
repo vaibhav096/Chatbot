@@ -50,7 +50,6 @@ Pygments==2.17.2
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 pytz
-pywin32
 pyzmq==25.1.2
 requests==2.31.0
 rsa==4.9
