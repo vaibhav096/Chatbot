@@ -83,7 +83,7 @@
           </div>
         </li> -->
         {% for chat in chats %}
-          {% if chat.user == request.user %}
+          {% if chat.user.id == request.user.id %}
 
             <li class="message sent">
           <div class="message-text">
@@ -101,8 +101,12 @@
             <div class="message-sender">
               <b>AI Chatbot</b>
             </div>
+            
+            {% load custom_filters %}
             <div class="message-content">
-             {{chat.response | safe}}
+
+              <!-- {{ chat.response|escape_and_preserve_indentation|safe }} -->
+              {{ chat.response|preserve_indentation|safe }}
             </div>
           </div>
         </li>

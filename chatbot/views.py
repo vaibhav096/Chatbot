@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 import json
 
+
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -25,13 +26,10 @@ import markdown2
 
 def make_html(markdown_text):
     html_content = markdown2.markdown(markdown_text)
+    print(html_content)
     html_document = f"<html><head><title>Markdown to HTML</title></head><body>{html_content}</body></html>"
-    return html_document
+    return html_content
 
-# Example usage:
-
-# html_document = make_html(markdown_text)
-# print(html_document)
 
 
 def to_markdown(text):
