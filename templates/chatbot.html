@@ -183,7 +183,7 @@
         message: message,
       }),
     })
-      .then((response) => response.json())
+      .then((response) => response.text())
       .then((data) => {
         const response = data.response;
         console.log("backend res :", response);
