@@ -106,7 +106,7 @@
             <div class="message-content">
 
               <!-- {{ chat.response|escape_and_preserve_indentation|safe }} -->
-              {{ chat.response|preserve_indentation|safe }}
+              {{ chat.response|safe }}
             </div>
           </div>
         </li>
@@ -185,9 +185,11 @@
     })
       .then((response) => response.text())
       .then((data) => {
-        const response = data.response;
-        console.log("backend res :", response);
-        const htmlResponse = converter.makeHtml(response);
+        // const response = data.response;
+        // console.log("pankaj was here");
+        // console.log("backend res :", response);
+        const htmlResponse = converter.makeHtml(data);
+        // console.log(htmlResponse);
         const messageItem = document.createElement("li");
         messageItem.classList.add("message", "received");
         messageItem.innerHTML = `
@@ -200,6 +202,7 @@
             </div>
         </div>
           `;
+        // messageItem.innerHTML = htmlResponse;
         messagesList.appendChild(messageItem);
       });
   });

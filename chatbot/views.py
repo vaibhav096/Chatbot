@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from .models import chat
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-import json
+from django.http import HttpResponse
+
 
 
 import os
@@ -52,7 +53,8 @@ def chatbot(request):
         res=make_html(response)
         ch =chat(user=request.user,message=message,response=res,created_at=timezone.now())
         ch.save()
-        return JsonResponse({'meaasge':message, 'response':response})
+        # print(response)
+        return HttpResponse(res)
         
     return render(request,'chatbot.html',{'chats':chats})
 
