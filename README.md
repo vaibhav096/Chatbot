@@ -19,7 +19,6 @@ Chatbot Project is a web application designed to provide conversational interact
 - Utilizes generative AI model for response generation
 - User authentication system
 - Chat history tracking
-
 ## Installation
 
 To run the Chatbot Project locally, follow these steps:
@@ -27,7 +26,7 @@ To run the Chatbot Project locally, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your_username/Chatbot.git```
+   git clone https://github.com/vaibhav096/Chatbot.git```
 
 1. Install dependencies:
 
